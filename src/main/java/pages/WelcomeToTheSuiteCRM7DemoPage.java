@@ -17,10 +17,12 @@ public class WelcomeToTheSuiteCRM7DemoPage extends BasePage{
     private final By H1_WELCOME_TO_THE_SUITE_CRM_7_DEMO = By.xpath
             ("//h1[text()='Welcome to the SuiteCRM 7 Demo']");
 
+    @Step("Открыть страницу Welcome To The Suite CRM 7 Demo Page")
     @Override
     public BasePage openPage() {
         return null;
     }
+
     @Step("Проверка отображения страницы 'Welcome to the SuiteCRM 7 Demo'")
     @Override
     public BasePage isPageOpened() {

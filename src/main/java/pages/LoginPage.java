@@ -32,6 +32,7 @@ public class LoginPage extends BasePage{
         return this;
     }
 
+    @Step("Авторизация пользователя с валидными данными")
     public WelcomeToTheSuiteCRM7DemoPage positiveLogin() {
         driver.findElement(USERNAME_FIELD).sendKeys("will");
         driver.findElement(PASSWORD_FIELD).sendKeys("will");

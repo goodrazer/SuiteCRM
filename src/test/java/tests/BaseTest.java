@@ -9,10 +9,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
-import pages.CreateAccounts;
+import pages.CreateAccountsPage;
 import pages.LoginPage;
-import org.testng.annotations.*;
-import pages.*;
+import pages.SuccessfullyCreatedAccountPage;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -20,7 +19,8 @@ public class BaseTest {
             "https://demo.suiteondemand.com";
 
     protected LoginPage loginPage;
-    protected CreateAccounts createAccounts;
+    protected CreateAccountsPage createAccounts;
+    protected SuccessfullyCreatedAccountPage successfullyCreatedAccountPage;
 
     @Parameters({"browser"})
     @BeforeMethod (alwaysRun = true, description = "Настройка браузера")
@@ -36,7 +36,8 @@ public class BaseTest {
         driver.get(URL + "/index.php?action=Login&module=Users&login_module=Users&login_action=Logout");
         iTestContext.setAttribute("driver", driver);
         loginPage = new LoginPage(driver);
-        createAccounts = new CreateAccounts(driver);
+        createAccounts = new CreateAccountsPage(driver);
+        successfullyCreatedAccountPage = new SuccessfullyCreatedAccountPage(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
