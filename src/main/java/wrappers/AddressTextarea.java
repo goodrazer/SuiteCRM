@@ -3,13 +3,13 @@ package wrappers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class AddressTextareaCreateAccount {
+public class AddressTextarea {
 
     WebDriver driver;
     String addressLabel;
     String label;
 
-    public AddressTextareaCreateAccount(WebDriver driver, String addressLabel, String label) {
+    public AddressTextarea(WebDriver driver, String addressLabel, String label) {
         this.driver = driver;
         this.addressLabel = addressLabel;
         this.label = label;

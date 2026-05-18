@@ -15,7 +15,7 @@ public class CreateAccountsPage extends BasePage{
     }
 
     private final By USERNAME_FIELD = By.xpath("//h2[text()=' CREATE ']");
-    private final By SAVE_BUTTON = By.id("SAVE");
+    private final By SAVE_BUTTON = By.xpath("(//*[@id='SAVE'])[2]");
 
     @Step("Открытие страницы 'Create Accounts'")
     public CreateAccountsPage openPage() {
@@ -32,8 +32,8 @@ public class CreateAccountsPage extends BasePage{
     }
 
     @Step("Клик кнопки 'SAVE' на странице 'Create Accounts'")
-    public CreateAccountsPage clickSaveButton() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(SAVE_BUTTON));
-        return this;
+    public SuccessfullyCreatedAccountPage clickSaveButton() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(SAVE_BUTTON)).click();
+        return new SuccessfullyCreatedAccountPage(driver);
     }
 }

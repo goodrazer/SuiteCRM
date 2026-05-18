@@ -9,7 +9,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateAccountModel {
+public class CreateAccountDTO {
     String name;
     String officePhone;
     String website;
