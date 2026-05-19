@@ -7,6 +7,7 @@ public class Select {
 
     WebDriver driver;
     String label;
+    private final String PATTERN_SELECT_XPATH = "//*[contains(text(), '%s')]/following-sibling::div//";
 
     public Select(WebDriver driver, String label) {
         this.driver = driver;
@@ -14,10 +15,8 @@ public class Select {
     }
 
     public void select(String option) {
-        driver.findElement
-                (By.xpath(String.format("//*[contains(text(), '%s')]/following-sibling::div//select", label))).click();
-        driver.findElement
-                (By.xpath(String.format("//*[contains(text(), '%s')]/following-sibling::div//option[contains(text(), '%s')]",
-                        label, option))).click();
+        driver.findElement(By.xpath(String.format(PATTERN_SELECT_XPATH + "select", label))).click();
+        driver.findElement(By.xpath(String.format(PATTERN_SELECT_XPATH + "option[contains(text(), '%s')]",
+                label, option))).click();
     }
 }

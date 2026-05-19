@@ -1,48 +1,53 @@
 package tests;
 
-import com.github.javafaker.Faker;
+import dto.AccountDTO;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import wrappers.*;
 
 public class NewAccountTest extends BaseTest {
 
-    @Test
+    @Test (testName = "Создание нового аккаунта",
+            description = "Создание нового аккаунта с проверкой создания аккаунта и проверкой введенных значений",
+            priority = 1,
+            groups = "Positive")
+    @Description("Создание нового аккаунта с проверкой создания аккаунта и проверкой введенных значений")
+    @Epic("EPIC01.Создание аккаунта")
+    @Feature("Создание нового аккаунта авторизованного пользователя")
+    @Story("Успешное создание аккаунта")
+    @Severity(SeverityLevel.CRITICAL)
+    @Link ("DocumentationLink")
+    @TmsLink("TestCaseLink")
+    @Issue("BugLink")
+    @Flaky
+    @Owner("Malevaniy Anton")
     public void checkAddNewAccount() {
-        loginPage.openPage()
-                        .isPageOpened()
-                        .positiveLogin()
+        loginStep.successfulAuthorization("will", "will");
+        createAccountsPage.openPage()
                         .isPageOpened();
-        createAccounts.openPage()
-                        .isPageOpened();
-        Faker faker = new Faker();
-        String name = faker.name().fullName();
-        new Input(driver, "Name").write(name);
+        AccountDTO accountDTO = AccountDTO.builder()
+                .officePhone("+79645637263")
+                .website("mihailcirclecompany.com")
+                .fax("79645637263")
+                .billingAddressStreet("Proletarskaya")
+                .billingAddressCity("Magadan")
+                .billingAddressStateRegion("Magadan region")
+                .billingAddressPostalCode("685000")
+                .billingAddressCountry("Russian Federation")
+                .shippingAddressStreet("Proletarskaya")
+                .shippingAddressCity("Magadan")
+                .shippingAddressStateRegion("Magadan region")
+                .shippingAddressPostalCode("685000")
+                .shippingAddressCountry("Russian Federation")
+                .annualRevenue("5000000")
+                .employees("50")
+                .type("Competitor")
+                .industry("Chemicals")
+                .build();
+        createAccountsPage.addNewAccount(accountDTO);
         String actualName = new Input(driver, "Name").getText();
-        new Input(driver, "Office Phone").write("+79645637263");
-        new Input(driver, "Website").write("mihailcirclecompany.com");
-        new Input(driver, "Fax").write("79645637263");
-        new Checkbox(driver, "Invalid").clickCheckbox();
-        new Checkbox(driver, "Opted Out").clickCheckbox();
-        new AddressTextarea(driver,"Billing Address", "Street")
-                .write("Пролетарская, д.130,");
-        new InputAddress(driver, "Billing Address", "City").write("Magadan");
-        new InputAddress(driver, "Billing Address", "State/Region").write("Magadan region");
-        new InputAddress(driver, "Billing Address", "Postal Code").write("685000");
-        new InputAddress(driver, "Billing Address", "Country").write("Russian Federation");
-        new AddressTextarea(driver,"Shipping Address", "Street")
-                .write("Пролетарская, д.130,");
-        new InputAddress(driver, "Shipping Address", "City").write("Magadan");
-        new InputAddress(driver, "Shipping Address", "State/Region").write("Magadan region");
-        new InputAddress(driver, "Shipping Address", "Postal Code").write("685000");
-        new InputAddress(driver, "Shipping Address", "Country").write("Russian Federation");
-        new Checkbox(driver, "Copy address from left").clickCheckbox();
-        new Select(driver, "Type").select("Competitor");
-        new Select(driver, "Industry").select("Chemicals");
-        new Input(driver, "Annual Revenue").write("5000000");
-        new Input(driver, "Employees").write("50");
-        new TextArea(driver, "Description").write("There should be a long description here");
-        createAccounts.clickSaveButton()
+        createAccountsPage.clickSaveButton()
                       .isPageOpened();
         SoftAssert softAssert = new SoftAssert();
         String expectedName = successfullyCreatedAccountPage.getNameSuccessfullyCreatedAccountPage();

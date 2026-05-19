@@ -7,6 +7,7 @@ public class Input {
 
     WebDriver driver;
     String label;
+    private final String INPUT_PATTERN_XPATH = "//div[contains(text(), '%s')]/parent::div//input";
 
     public Input(WebDriver driver, String label) {
         this.driver = driver;
@@ -14,12 +15,12 @@ public class Input {
     }
 
     public void write(String text) {
-        driver.findElement(By.xpath(String.format("//div[contains(text(), '%s')]/parent::div//input", label)))
+        driver.findElement(By.xpath(String.format(INPUT_PATTERN_XPATH, label)))
                 .sendKeys(text);
     }
 
     public String getText() {
-        return driver.findElement(By.xpath(String.format("//div[contains(text(), '%s')]/parent::div//input", label)))
+        return driver.findElement(By.xpath(String.format(INPUT_PATTERN_XPATH, label)))
                 .getAttribute("value");
     }
 }

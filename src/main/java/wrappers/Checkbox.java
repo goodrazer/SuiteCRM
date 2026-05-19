@@ -6,15 +6,15 @@ import org.openqa.selenium.WebDriver;
 public class Checkbox {
 
     WebDriver driver;
-    String label;
+    String id;
 
     public Checkbox(WebDriver driver, String label) {
         this.driver = driver;
-        this.label = label;
+        this.id = label;
     }
 
     public void clickCheckbox() {
-        driver.findElement(By.xpath(String.format("//input[@type='checkbox' and contains(@name, '%s')]", label)))
+        driver.findElement(By.xpath(String.format("//*[@id='%s']", id)))
                 .click();
     }
 }

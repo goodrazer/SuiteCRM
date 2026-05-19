@@ -20,7 +20,8 @@ public class WelcomeToTheSuiteCRM7DemoPage extends BasePage{
     @Step("Открыть страницу Welcome To The Suite CRM 7 Demo Page")
     @Override
     public BasePage openPage() {
-        return null;
+        driver.get(BASE_URL + "/index.php?module=Home&action=Demo");
+        return this;
     }
 
     @Step("Проверка отображения страницы 'Welcome to the SuiteCRM 7 Demo'")

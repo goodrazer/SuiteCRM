@@ -18,7 +18,6 @@ public class SuccessfullyCreatedAccountPage extends BasePage{
     private final By ELEMENT_DATE_CREATED = By.xpath("//h2[@class='module-title-text']");
     private final By NAME = By.id("name");
     private final By WEBSITE = By.id("website");
-    private final By EMAIL_ADDRESS = By.id("email1_span");
     private final By OFFICE_PHONE = By.xpath("//*[@field='phone_office']");
     private final By FAX = By.xpath("//*[@field='phone_fax']");
     private final By DESCRIPTION = By.xpath("//*[@field='description']");
@@ -32,7 +31,9 @@ public class SuccessfullyCreatedAccountPage extends BasePage{
     @Step("Открыть страницу 'Successfully Created Account'")
     @Override
     public BasePage openPage() {
-        return null;
+        driver.get(BASE_URL + "/index.php?action=DetailView&module=Accounts&record=" +
+                "c9d369c5-7bde-4c1d-ae98-b1b6e5c5de88&return_module=Accounts&return_action=DetailView&offset=1");
+        return this;
     }
 
     @Step("Проверка отображения страницы 'Successfully Created Account'")
@@ -77,7 +78,8 @@ public class SuccessfullyCreatedAccountPage extends BasePage{
     public SuccessfullyCreatedAccountPage clickTabMoreInformation() {
         wait.until(ExpectedConditions.presenceOfElementLocated(TAB_MORE_INFORMATION));
         org.openqa.selenium.WebElement tab = driver.findElement(TAB_MORE_INFORMATION);
-        ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", tab);
+        ((org.openqa.selenium.JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView(true);", tab);
         ((org.openqa.selenium.JavascriptExecutor) driver).executeScript("arguments[0].click();", tab);
         return this;
     }

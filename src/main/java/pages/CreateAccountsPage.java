@@ -1,10 +1,14 @@
 package pages;
 
+import com.github.javafaker.Faker;
+import dto.AccountDTO;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import wrappers.*;
+
 import java.time.Duration;
 
 public class CreateAccountsPage extends BasePage{
@@ -29,6 +33,45 @@ public class CreateAccountsPage extends BasePage{
     public CreateAccountsPage isPageOpened() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_FIELD));
         return this;
+    }
+
+    @Step("Создание нового аккаунта")
+    public SuccessfullyCreatedAccountPage addNewAccount(AccountDTO accountDTO){
+        Faker faker = new Faker();
+        String name = faker.name().fullName();
+        new Input(driver, "Name").write(name);
+        new Input(driver, "Office Phone").write(accountDTO.getOfficePhone());
+        new Input(driver, "Website").write(accountDTO.getWebsite());
+        new Input(driver, "Fax").write(accountDTO.getFax());
+        new Checkbox(driver, "Accounts0emailAddressOptOutFlag0").clickCheckbox();
+        new Checkbox(driver, "Accounts0emailAddressInvalidFlag0").clickCheckbox();
+        new AddressTextarea(driver,"Billing Address", "Street")
+                .write(accountDTO.getBillingAddressStreet());
+        new InputAddress(driver, "Billing Address", "City").
+                write(accountDTO.getBillingAddressCity());
+        new InputAddress(driver, "Billing Address", "State/Region")
+                .write(accountDTO.getBillingAddressStateRegion());
+        new InputAddress(driver, "Billing Address", "Postal Code")
+                .write(accountDTO.getBillingAddressPostalCode());
+        new InputAddress(driver, "Billing Address", "Country")
+                .write(accountDTO.getBillingAddressCountry());
+        new AddressTextarea(driver,"Shipping Address", "Street")
+                .write(accountDTO.getShippingAddressStreet());
+        new InputAddress(driver, "Shipping Address", "City")
+                .write(accountDTO.getShippingAddressCity());
+        new InputAddress(driver, "Shipping Address", "State/Region")
+                .write(accountDTO.getShippingAddressStateRegion());
+        new InputAddress(driver, "Shipping Address", "Postal Code")
+                .write(accountDTO.getShippingAddressPostalCode());
+        new InputAddress(driver, "Shipping Address", "Country")
+                .write(accountDTO.getShippingAddressCountry());
+        new Checkbox(driver, "shipping_checkbox").clickCheckbox();
+        new Select(driver, "Type").select(accountDTO.getType());
+        new Select(driver, "Industry").select(accountDTO.getIndustry());
+        new Input(driver, "Annual Revenue").write(accountDTO.getAnnualRevenue());
+        new Input(driver, "Employees").write(accountDTO.getEmployees());
+        new TextArea(driver, "Description").write(accountDTO.getDescription());
+        return new SuccessfullyCreatedAccountPage(driver);
     }
 
     @Step("Клик кнопки 'SAVE' на странице 'Create Accounts'")
