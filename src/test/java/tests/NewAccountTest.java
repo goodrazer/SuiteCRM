@@ -2,10 +2,12 @@ package tests;
 
 import dto.AccountDTO;
 import io.qameta.allure.*;
+import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import wrappers.*;
 
+@Log4j2
 public class NewAccountTest extends BaseTest {
 
     @Test (testName = "Создание нового аккаунта",
@@ -23,6 +25,7 @@ public class NewAccountTest extends BaseTest {
     @Flaky
     @Owner("Malevaniy Anton")
     public void checkAddNewAccount() {
+        log.info("Creating a new account");
         loginStep.successfulAuthorization("will", "will");
         createAccountsPage.openPage()
                         .isPageOpened();
@@ -49,6 +52,7 @@ public class NewAccountTest extends BaseTest {
         String actualName = new Input(driver, "Name").getText();
         createAccountsPage.clickSaveButton()
                       .isPageOpened();
+        log.info("Verifying account details...");
         SoftAssert softAssert = new SoftAssert();
         String expectedName = successfullyCreatedAccountPage.getNameSuccessfullyCreatedAccountPage();
         softAssert.assertEquals(actualName, expectedName,
@@ -90,6 +94,7 @@ public class NewAccountTest extends BaseTest {
         softAssert.assertEquals(actualIndustry, expectedIndustry,
                 "Индустрия, введенная на этапе создания аккаунта " +
                         "не совпадает с индустрией в созданном аккаунте!");
+        log.info("Finalizing assertions");
         softAssert.assertAll();
         driver.quit();
     }

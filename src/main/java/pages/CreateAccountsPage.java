@@ -3,14 +3,17 @@ package pages;
 import com.github.javafaker.Faker;
 import dto.AccountDTO;
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import wrappers.*;
-
 import java.time.Duration;
 
+@Log4j2
 public class CreateAccountsPage extends BasePage{
 
     public CreateAccountsPage(WebDriver driver) {
@@ -23,6 +26,7 @@ public class CreateAccountsPage extends BasePage{
 
     @Step("Открытие страницы 'Create Accounts'")
     public CreateAccountsPage openPage() {
+        log.info("Opening the 'Create Accounts' page");
         driver.get(BASE_URL +
                 "/index.php?module=Accounts&action=EditView&return_module=Accounts&return_action=DetailView");
         return this;
@@ -31,12 +35,19 @@ public class CreateAccountsPage extends BasePage{
     @Step("Проверка отображения страницы 'Create Accounts'")
     @Override
     public CreateAccountsPage isPageOpened() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_FIELD));
+        try {
+            log.info("Checking the display of the 'Create Accounts' page");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(USERNAME_FIELD));
+        } catch (TimeoutException e) {
+            log.error(e.getMessage());
+            Assert.fail("The page did not open!!!");
+        }
         return this;
     }
 
-    @Step("Создание нового аккаунта")
+    @Step("Создание нового аккаунта c параметором 'accountDTO'")
     public SuccessfullyCreatedAccountPage addNewAccount(AccountDTO accountDTO){
+        log.info("Creating a new account with parameter {}", accountDTO);
         Faker faker = new Faker();
         String name = faker.name().fullName();
         new Input(driver, "Name").write(name);
@@ -76,6 +87,7 @@ public class CreateAccountsPage extends BasePage{
 
     @Step("Клик кнопки 'SAVE' на странице 'Create Accounts'")
     public SuccessfullyCreatedAccountPage clickSaveButton() {
+        log.info("Click the 'SAVE' button on the 'Create Accounts' page");
         wait.until(ExpectedConditions.visibilityOfElementLocated(SAVE_BUTTON)).click();
         return new SuccessfullyCreatedAccountPage(driver);
     }

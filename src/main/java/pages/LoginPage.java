@@ -1,12 +1,16 @@
 package pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import java.time.Duration;
 
+@Log4j2
 public class LoginPage extends BasePage{
 
     public LoginPage(WebDriver driver) {
@@ -21,6 +25,7 @@ public class LoginPage extends BasePage{
 
     @Step("Открытие стартовой страницы 'Login'")
     public LoginPage openPage() {
+        log.info("Opening the 'Login' start page");
         driver.get(BASE_URL + "/index.php?module=Users&action=Login");
         return this;
     }
@@ -28,14 +33,21 @@ public class LoginPage extends BasePage{
     @Step("Проверка отображения страницы 'Login'")
     @Override
     public LoginPage isPageOpened() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
+        try {
+            log.info("Checking the display of the 'Login' page");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
+        } catch (TimeoutException e) {
+            log.error(e.getMessage());
+            Assert.fail("The page did not open!!!");
+        }
         return this;
     }
 
-    @Step("Авторизация пользователя с валидными данными")
+    @Step("Авторизация пользователя с валидными данными логина и пароля")
     public WelcomeToTheSuiteCRM7DemoPage positiveLogin(String user, String password) {
-        driver.findElement(USERNAME_FIELD).sendKeys("will");
-        driver.findElement(PASSWORD_FIELD).sendKeys("will");
+        log.info("User authorization with valid data '{}' and '{}'", user,password);
+        driver.findElement(USERNAME_FIELD).sendKeys(user);
+        driver.findElement(PASSWORD_FIELD).sendKeys(password);
         driver.findElement(LOGIN_BUTTON).click();
         return new WelcomeToTheSuiteCRM7DemoPage(driver);
     }
