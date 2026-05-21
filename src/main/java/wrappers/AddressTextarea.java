@@ -18,7 +18,7 @@ public class AddressTextarea {
 
     @Step("Заполнение полей 'Textarea' с наименованием 'Street' в зависимости от параметров " +
             "'{Billing Address}' или '{Shipping Address}'")
-    public void write(String text) {
+    public void writeAddressTextareaOnCreateAccountPage(String text) {
         log.info("Writing in the 'Textarea' fields named 'Street' with a selection of parameters '{}' and '{}'",
                 addressLabel, label);
         driver.findElement(By.xpath(String.format("//*[contains(text(), '%s')]/ancestor::" +

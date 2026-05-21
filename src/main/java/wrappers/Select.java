@@ -17,7 +17,7 @@ public class Select {
     private final String PATTERN_SELECT_XPATH = "//*[contains(text(), '%s')]/following-sibling::div//";
 
     @Step("Выбор элементов 'Dropdown' исходя из наименования и выбор опции выбранного элемента 'Dropdown'")
-    public void select(String option) {
+    public void selectOnAccountPage(String option) {
         log.info("Select 'Dropdown' elements based on the name and select the option of the selected " +
                 "'Dropdown' element with the parameters:'{}' and '{}'", label, option);
         driver.findElement(By.xpath(String.format(PATTERN_SELECT_XPATH + "select", label))).click();

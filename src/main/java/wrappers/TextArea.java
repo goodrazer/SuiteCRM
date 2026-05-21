@@ -16,7 +16,7 @@ public class TextArea {
     String label;
 
     @Step("Заполнение полей 'Textarea' в зависимости от наименования")
-    public void write(String text) {
+    public void writeTextareaOnAccountPage(String text) {
         log.info("Writing in the 'Textarea' fields depending on the name: '{}'", label);
         driver.findElement(By.xpath(String.format("//*[contains(text(), '%s')]/ancestor::div[contains(@class, " +
                         "'edit-view-row-item')]//textarea", label)))

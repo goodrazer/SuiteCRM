@@ -49,7 +49,7 @@ public class NewAccountTest extends BaseTest {
                 .industry("Chemicals")
                 .build();
         createAccountsPage.addNewAccount(accountDTO);
-        String actualName = new Input(driver, "Name").getText();
+        String actualName = new InputAccount(driver, "Name").getTextOnAccountPage();
         createAccountsPage.clickSaveButton()
                       .isPageOpened();
         log.info("Verifying account details...");

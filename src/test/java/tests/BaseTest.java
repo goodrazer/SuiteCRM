@@ -8,7 +8,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 import pages.CreateAccountsPage;
+import pages.CreateContactsPage;
 import pages.SuccessfullyCreatedAccountPage;
+import pages.SuccessfullyCreatedContactsPage;
 import step.LoginStep;
 import utils.TestListener;
 
@@ -22,6 +24,8 @@ public class BaseTest {
     protected CreateAccountsPage createAccountsPage;
     protected SuccessfullyCreatedAccountPage successfullyCreatedAccountPage;
     protected LoginStep loginStep;
+    protected CreateContactsPage createContactsPage;
+    protected SuccessfullyCreatedContactsPage successfullyCreatedContactsPage;
 
     @Parameters({"browser"})
     @BeforeMethod (alwaysRun = true, description = "Настройка браузера")
@@ -40,6 +44,8 @@ public class BaseTest {
         createAccountsPage = new CreateAccountsPage(driver);
         successfullyCreatedAccountPage = new SuccessfullyCreatedAccountPage(driver);
         loginStep = new LoginStep(driver);
+        createContactsPage = new CreateContactsPage(driver);
+        successfullyCreatedContactsPage = new SuccessfullyCreatedContactsPage(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Закрытие браузера")

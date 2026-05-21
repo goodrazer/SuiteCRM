@@ -53,6 +53,7 @@ public class SuccessfullyCreatedAccountPage extends BasePage{
 
     @Step("Получить наименование созданного аккаунта на странице 'Successfully Created Account Page'")
     public String getNameSuccessfullyCreatedAccountPage() {
+        log.info("get Name Successfully Created Account Page");
         log.info("Get the name of the created account on the 'Successfully Created Account Page'");
         return driver.findElement(NAME).getText();
     }

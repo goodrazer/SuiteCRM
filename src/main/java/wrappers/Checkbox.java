@@ -16,7 +16,7 @@ public class Checkbox {
     String id;
 
     @Step("Клик по чекбоксу с выбором 'id'")
-    public void clickCheckbox() {
+    public void clickCheckboxOnAccountPage() {
         log.info("Click on the checkbox with the '{}' selection", id);
         driver.findElement(By.xpath(String.format("//*[@id='%s']", id)))
                 .click();
