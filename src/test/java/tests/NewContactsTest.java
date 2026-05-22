@@ -6,7 +6,6 @@ import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-@Log4j2
 public class NewContactsTest extends BaseTest{
 
     @Test(testName = "Создание нового контакта",
@@ -24,7 +23,6 @@ public class NewContactsTest extends BaseTest{
     @Flaky
     @Owner("Malevaniy Anton")
     public void checkAddNewAccount() {
-        log.info("Creating a new contact");
         loginStep.successfulAuthorization("will", "will");
         createContactsPage.openPage()
                 .isPageOpened();
@@ -40,7 +38,6 @@ public class NewContactsTest extends BaseTest{
         createContactsPage.addNewContact(contactsDTO);
         createContactsPage.clickSaveButton()
                 .isPageOpened();
-        log.info("Verifying account details...");
         SoftAssert softAssert = new SoftAssert();
         String actualFirstName = "Anton";
         String expectedFirstName = successfullyCreatedContactsPage.getLastNameSuccessfullyCreatedContactsPage();
@@ -52,7 +49,6 @@ public class NewContactsTest extends BaseTest{
         softAssert.assertEquals(actualLastName, expectedLastName,
                 "Фамилия, введенная на этапе создания аккаунта " +
                         "не совпадает с фамилией в созданном аккаунте!");
-        log.info("Finalizing assertions");
         softAssert.assertAll();
         driver.quit();
     }
