@@ -1,5 +1,6 @@
 package pages;
 
+import com.github.javafaker.Faker;
 import dto.ContactsDTO;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -46,9 +47,13 @@ public class CreateContactsPage extends BasePage
     @Step("Создание нового аккаунта c параметором 'contactsDTO'")
     public void addNewContact(ContactsDTO contactsDTO){
         log.info("Creating a new account with parameter {}", contactsDTO);
-        new InputContacts(driver, "First Name", "first_name").writeInputOnContactPage(contactsDTO.getFirstName());
-        new InputContacts(driver, "Office Phone","phone_work").writeInputOnContactPage(contactsDTO.getOfficePhone());
-        new InputContacts(driver, "Job Title","title").writeInputOnContactPage(contactsDTO.getJobTitle());
+        Faker faker = new Faker();
+        String firstName = faker.name().firstName();
+        new InputContacts(driver, "First Name", "first_name").writeInputOnContactPage(firstName);
+        String job = faker.company().name();
+        new InputAccount(driver, "Job Title").writeInputOnAccountPage(job);
+        String officePhone = faker.phoneNumber().phoneNumber();
+        new InputContacts(driver, "Office Phone","phone_work").writeInputOnContactPage(officePhone);
         new InputContacts(driver, "Last Name","last_name").writeInputOnContactPage(contactsDTO.getLastName());
         new InputContacts(driver, "Mobile","phone_mobile").writeInputOnContactPage(contactsDTO.getMobile());
         new InputContacts(driver, "Department", "department").writeInputOnContactPage(contactsDTO.getDepartment());

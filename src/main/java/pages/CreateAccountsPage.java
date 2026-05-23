@@ -46,7 +46,7 @@ public class CreateAccountsPage extends BasePage{
     }
 
     @Step("Создание нового аккаунта c параметором 'accountDTO'")
-    public SuccessfullyCreatedAccountPage addNewAccount(AccountDTO accountDTO){
+    public SuccessfullyCreatedAccountPage addNewAccount(AccountDTO accountDTO) {
         log.info("Creating a new account with parameter {}", accountDTO);
         Faker faker = new Faker();
         String name = faker.name().fullName();
@@ -56,26 +56,26 @@ public class CreateAccountsPage extends BasePage{
         new InputAccount(driver, "Fax").writeInputOnAccountPage(accountDTO.getFax());
         new Checkbox(driver, "Accounts0emailAddressOptOutFlag0").clickCheckboxOnAccountPage();
         new Checkbox(driver, "Accounts0emailAddressInvalidFlag0").clickCheckboxOnAccountPage();
-        new AddressTextarea(driver,"Billing Address", "Street")
+        new AddressTextareaAndInput(driver,"Billing Address", "Street")
                 .writeAddressTextareaOnCreateAccountPage(accountDTO.getBillingAddressStreet());
-        new InputAddress(driver, "Billing Address", "City").
-                writeInputAddressOnAccountPage(accountDTO.getBillingAddressCity());
-        new InputAddress(driver, "Billing Address", "State/Region")
-                .writeInputAddressOnAccountPage(accountDTO.getBillingAddressStateRegion());
-        new InputAddress(driver, "Billing Address", "Postal Code")
-                .writeInputAddressOnAccountPage(accountDTO.getBillingAddressPostalCode());
-        new InputAddress(driver, "Billing Address", "Country")
-                .writeInputAddressOnAccountPage(accountDTO.getBillingAddressCountry());
-        new AddressTextarea(driver,"Shipping Address", "Street")
+        new AddressTextareaAndInput(driver, "Billing Address", "City")
+                .writeAddressInputOnCreateAccountPage(accountDTO.getBillingAddressCity());
+        new AddressTextareaAndInput(driver, "Billing Address", "State/Region")
+                .writeAddressInputOnCreateAccountPage(accountDTO.getBillingAddressStateRegion());
+        new AddressTextareaAndInput(driver, "Billing Address", "Postal Code")
+                .writeAddressInputOnCreateAccountPage(accountDTO.getBillingAddressPostalCode());
+        new AddressTextareaAndInput(driver, "Billing Address", "Country")
+                .writeAddressInputOnCreateAccountPage(accountDTO.getBillingAddressCountry());
+        new AddressTextareaAndInput(driver,"Shipping Address", "Street")
                 .writeAddressTextareaOnCreateAccountPage(accountDTO.getShippingAddressStreet());
-        new InputAddress(driver, "Shipping Address", "City")
-                .writeInputAddressOnAccountPage(accountDTO.getShippingAddressCity());
-        new InputAddress(driver, "Shipping Address", "State/Region")
-                .writeInputAddressOnAccountPage(accountDTO.getShippingAddressStateRegion());
-        new InputAddress(driver, "Shipping Address", "Postal Code")
-                .writeInputAddressOnAccountPage(accountDTO.getShippingAddressPostalCode());
-        new InputAddress(driver, "Shipping Address", "Country")
-                .writeInputAddressOnAccountPage(accountDTO.getShippingAddressCountry());
+        new AddressTextareaAndInput(driver, "Shipping Address", "City")
+                .writeAddressInputOnCreateAccountPage(accountDTO.getShippingAddressCity());
+        new AddressTextareaAndInput(driver, "Shipping Address", "State/Region")
+                .writeAddressInputOnCreateAccountPage(accountDTO.getShippingAddressStateRegion());
+        new AddressTextareaAndInput(driver, "Shipping Address", "Postal Code")
+                .writeAddressInputOnCreateAccountPage(accountDTO.getShippingAddressPostalCode());
+        new AddressTextareaAndInput(driver, "Shipping Address", "Country")
+                .writeAddressInputOnCreateAccountPage(accountDTO.getShippingAddressCountry());
         new Checkbox(driver, "shipping_checkbox").clickCheckboxOnAccountPage();
         new Select(driver, "Type").selectOnAccountPage(accountDTO.getType());
         new Select(driver, "Industry").selectOnAccountPage(accountDTO.getIndustry());

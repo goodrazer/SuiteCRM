@@ -5,6 +5,7 @@ import io.qameta.allure.*;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import wrappers.InputContacts;
 
 @Log4j2
 public class NewContactsTest extends BaseTest{
@@ -24,25 +25,22 @@ public class NewContactsTest extends BaseTest{
     @Flaky
     @Owner("Malevaniy Anton")
     public void checkAddNewAccount() {
-        log.info("Creating a new contact");
         loginStep.successfulAuthorization("will", "will");
         createContactsPage.openPage()
                 .isPageOpened();
         ContactsDTO contactsDTO = ContactsDTO.builder()
                 .firstName("Anton")
                 .lastName("Malevaniy")
-                .jobTitle("ololoCompany")
-                .officePhone("+79645637263")
                 .fax("79645637263")
                 .department("ololoDepartment")
                 .mobile("+79645637263")
                 .build();
         createContactsPage.addNewContact(contactsDTO);
+        String actualFirstName = new InputContacts(driver, "First Name","first_name").getTextOnContractsPage();
         createContactsPage.clickSaveButton()
                 .isPageOpened();
         log.info("Verifying account details...");
         SoftAssert softAssert = new SoftAssert();
-        String actualFirstName = "Anton";
         String expectedFirstName = successfullyCreatedContactsPage.getLastNameSuccessfullyCreatedContactsPage();
         softAssert.assertEquals(actualFirstName, expectedFirstName,
                 "Имя, введенное на этапе создания контакта " +
@@ -52,7 +50,6 @@ public class NewContactsTest extends BaseTest{
         softAssert.assertEquals(actualLastName, expectedLastName,
                 "Фамилия, введенная на этапе создания аккаунта " +
                         "не совпадает с фамилией в созданном аккаунте!");
-        log.info("Finalizing assertions");
         softAssert.assertAll();
         driver.quit();
     }

@@ -52,7 +52,6 @@ public class NewAccountTest extends BaseTest {
         String actualName = new InputAccount(driver, "Name").getTextOnAccountPage();
         createAccountsPage.clickSaveButton()
                       .isPageOpened();
-        log.info("Verifying account details...");
         SoftAssert softAssert = new SoftAssert();
         String expectedName = successfullyCreatedAccountPage.getNameSuccessfullyCreatedAccountPage();
         softAssert.assertEquals(actualName, expectedName,
@@ -94,7 +93,6 @@ public class NewAccountTest extends BaseTest {
         softAssert.assertEquals(actualIndustry, expectedIndustry,
                 "Индустрия, введенная на этапе создания аккаунта " +
                         "не совпадает с индустрией в созданном аккаунте!");
-        log.info("Finalizing assertions");
         softAssert.assertAll();
         driver.quit();
     }
