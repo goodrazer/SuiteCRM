@@ -2,7 +2,6 @@ package tests;
 
 import dto.ContactsDTO;
 import io.qameta.allure.*;
-import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
