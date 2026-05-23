@@ -18,9 +18,7 @@ import utils.TestListener;
 @Log4j2
 public class BaseTest {
     protected WebDriver driver;
-    protected final String URL =
-            "https://demo.suiteondemand.com";
-
+    protected final String URL = "https://demo.suiteondemand.com";
     protected CreateAccountsPage createAccountsPage;
     protected SuccessfullyCreatedAccountPage successfullyCreatedAccountPage;
     protected LoginStep loginStep;
@@ -31,7 +29,6 @@ public class BaseTest {
     @BeforeMethod (alwaysRun = true, description = "Настройка браузера")
     @Description("Настройка браузера")
     public void setUp (@Optional("chrome") String browser, ITestContext iTestContext) {
-        log.info("Launching a browser with a choice of options");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
         options.addArguments("--incognito");
@@ -51,7 +48,6 @@ public class BaseTest {
     @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
     @Description("Закрытие браузера")
     public void tearDown() {
-        log.info("Closing the browser");
         if (driver != null) {
             driver.quit();
         }
